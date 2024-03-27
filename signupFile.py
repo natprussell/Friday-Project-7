@@ -10,7 +10,7 @@ def signup():
     reenter_password = reenter_password_entry.get()
     if "@" not in email:
         status_label.config(text="Invalid email format. Please enter a valid email.")
-    elif password == reenter_password:
+    if password == reenter_password:
         conn = sqlite3.connect('SignUpInfo.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS users (email TEXT, password TEXT)''')
