@@ -2,17 +2,15 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 
-root = Tk()
-root.geometry("150x150")
-root.title("Sign Up")
-
-
 def signup():
     email = email_entry.get()
     password = password_entry.get()
     reenter_password = reenter_password_entry.get()
 
-    if password == reenter_password:
+    if "@" and ".com" not in email:
+        status_label.config(text="Invalid email format. Please enter a valid email.")
+
+    elif password == reenter_password:
         conn = sqlite3.connect('SignUpInfo.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS users (email TEXT, password TEXT)''')
@@ -20,13 +18,18 @@ def signup():
         conn.commit()
         conn.close()
 
-        email_entry.delete(0, ttk.END)
-        password_entry.delete(0, ttk.END)
-        reenter_password_entry.delete(0, ttk.END)
+        email_entry.delete(0,"end")
+        password_entry.delete(0,"end")
+        reenter_password_entry.delete(0,"end")
 
         status_label.config(text="Sign up successful!")
     else:
         status_label.config(text="Passwords do not match. Please try again.")
+
+
+root = Tk()
+root.title("Sign Up")
+root.geometry("250x250")
 
 email_label = ttk.Label(root, text="Email:")
 email_label.pack()
