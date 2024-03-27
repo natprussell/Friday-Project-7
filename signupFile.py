@@ -7,7 +7,7 @@ def signup():
     password = password_entry.get()
     reenter_password = reenter_password_entry.get()
 
-    if "@" and ".com" not in email:
+    if "@" and "." not in email:
         status_label.config(text="Invalid email format. Please enter a valid email.")
 
     elif password == reenter_password:
